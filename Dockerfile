@@ -35,7 +35,10 @@ ENV PATH=/venv/bin:$PATH
 RUN python3.8 -m pip install --upgrade pip==23.0.1
 RUN python3.8 -m pip install runpod==0.9.1
 RUN python3.8 -m pip install torch==2.0.0
-RUN python3.8 -m pip install transformers==4.27.2
+RUN python3.8 -m pip install git+https://github.com/huggingface/transformers.git
+RUN python3.8 -m pip install einops
+RUN python3.8 -m pip install bitsandbytes>=0.39.0
+RUN python3.8 -m pip install git+https://github.com/huggingface/accelerate.git
 
 COPY model_fetcher.py /src/model_fetcher.py
 RUN python3.8 model_fetcher.py --model_name=${MODEL_NAME}
