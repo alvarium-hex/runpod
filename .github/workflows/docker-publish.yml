@@ -34,9 +34,6 @@ jobs:
       id-token: write
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
       - name: Free worker space
         uses: easimon/maximize-build-space@master
         with:
@@ -49,6 +46,9 @@ jobs:
         run: |
           echo "Free space:"
           df -h
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
