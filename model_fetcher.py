@@ -37,6 +37,22 @@ def download_model(model_name):
                                         torch_dtype=torch.float16)
         AutoTokenizer.from_pretrained("EleutherAI/gpt-j-6B")
 
+    # ----------------------------------- Falcon 7B instruct ----------------------------------- #
+    elif model_name == 'falcon-7b-instruct':
+        AutoModelForCausalLM.from_pretrained("tiiuae/falcon-7b-instruct",
+                                             trust_remote_code=True,
+                                             load_in_4bit=True,
+                                             device_map="auto")
+        AutoTokenizer.from_pretrained("tiiuae/falcon-7b-instruct")
+
+    # ----------------------------------- Falcon 40B instruct ----------------------------------- #
+    elif model_name == 'falcon-40b-instruct':
+        AutoModelForCausalLM.from_pretrained("tiiuae/falcon-40b-instruct",
+                                             trust_remote_code=True,
+                                             load_in_4bit=True,
+                                             device_map="auto")
+        AutoTokenizer.from_pretrained("tiiuae/falcon-40b-instruct")
+
 
 # ---------------------------------------------------------------------------- #
 #                                Parse Arguments                               #

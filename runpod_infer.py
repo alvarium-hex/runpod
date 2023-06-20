@@ -107,4 +107,22 @@ if __name__ == "__main__":
         tokenizer = AutoTokenizer.from_pretrained(
             "EleutherAI/gpt-j-6B", local_files_only=True)
 
+    elif args.model_name == 'falcon-7b-instruct':
+        model = AutoModelForCausalLM.from_pretrained(
+            "tiiuae/falcon-7b-instruct",
+            local_files_only=True,
+            trust_remote_code=True,
+            load_in_4bit=True).to(device)
+        tokenizer = AutoTokenizer.from_pretrained(
+            "tiiuae/falcon-7b-instruct", local_files_only=True)
+        
+    elif args.model_name == 'falcon-40b-instruct':
+        model = AutoModelForCausalLM.from_pretrained(
+            "tiiuae/falcon-40b-instruct",
+            local_files_only=True,
+            trust_remote_code=True,
+            load_in_4bit=True).to(device)
+        tokenizer = AutoTokenizer.from_pretrained(
+            "tiiuae/falcon-40b-instruct", local_files_only=True)
+
     runpod.serverless.start({"handler": generator})
