@@ -40,17 +40,13 @@ def download_model(model_name):
     # ----------------------------------- Falcon 7B instruct ----------------------------------- #
     elif model_name == 'falcon-7b-instruct':
         AutoModelForCausalLM.from_pretrained("tiiuae/falcon-7b-instruct",
-                                             trust_remote_code=True,
-                                             load_in_4bit=True,
-                                             device_map="auto")
+                                             trust_remote_code=True).half()
         AutoTokenizer.from_pretrained("tiiuae/falcon-7b-instruct")
 
     # ----------------------------------- Falcon 40B instruct ----------------------------------- #
     elif model_name == 'falcon-40b-instruct':
         AutoModelForCausalLM.from_pretrained("tiiuae/falcon-40b-instruct",
-                                             trust_remote_code=True,
-                                             load_in_4bit=True,
-                                             device_map="auto")
+                                             trust_remote_code=True).half()
         AutoTokenizer.from_pretrained("tiiuae/falcon-40b-instruct")
 
 

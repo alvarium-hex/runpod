@@ -111,8 +111,7 @@ if __name__ == "__main__":
         model = AutoModelForCausalLM.from_pretrained(
             "tiiuae/falcon-7b-instruct",
             local_files_only=True,
-            trust_remote_code=True,
-            load_in_4bit=True).to(device)
+            trust_remote_code=True).half().to(device)
         tokenizer = AutoTokenizer.from_pretrained(
             "tiiuae/falcon-7b-instruct", local_files_only=True)
         
@@ -120,8 +119,7 @@ if __name__ == "__main__":
         model = AutoModelForCausalLM.from_pretrained(
             "tiiuae/falcon-40b-instruct",
             local_files_only=True,
-            trust_remote_code=True,
-            load_in_4bit=True).to(device)
+            trust_remote_code=True).half().to(device)
         tokenizer = AutoTokenizer.from_pretrained(
             "tiiuae/falcon-40b-instruct", local_files_only=True)
 
