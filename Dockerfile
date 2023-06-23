@@ -44,11 +44,8 @@ RUN python3.8 -m pip install git+https://github.com/huggingface/accelerate.git
 FROM dev-base as model-fetcher
 
 COPY model_fetcher.py /src/model_fetcher.py
-RUN python3.8 model_fetcher.py --model_name=${MODEL_NAME}
-
-FROM model-fetcher as model-infer
-
 COPY runpod_infer.py /src/runpod_infer.py
 COPY test_input.json /src/test_input.json
 
+RUN python3.8 model_fetcher.py --model_name=${MODEL_NAME}
 CMD python3.8 -u runpod_infer.py --model_name=${MODEL_NAME}
