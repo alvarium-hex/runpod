@@ -40,6 +40,7 @@ RUN python3.8 -m pip install git+https://github.com/huggingface/transformers.git
 RUN python3.8 -m pip install einops
 RUN python3.8 -m pip install bitsandbytes>=0.39.0
 RUN python3.8 -m pip install git+https://github.com/huggingface/accelerate.git
+RUN python3.8 -m pip install huggingface_hub
 
 FROM dev-base as model-fetcher
 

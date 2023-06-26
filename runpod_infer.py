@@ -122,5 +122,12 @@ if __name__ == "__main__":
             trust_remote_code=True).half().to(device)
         tokenizer = AutoTokenizer.from_pretrained(
             "tiiuae/falcon-40b-instruct", local_files_only=True)
+        
+    elif args.model_name == 'starcoder':
+        model = AutoModelForCausalLM.from_pretrained(
+            "bigcode/starcoder",
+            local_files_only=True).half().to(device)
+        tokenizer = AutoTokenizer.from_pretrained(
+            "bigcode/starcoder", local_files_only=True)
 
     runpod.serverless.start({"handler": generator})

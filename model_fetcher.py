@@ -1,61 +1,62 @@
-'''
+"""
 RunPod | Transformer | Model Fetcher
-'''
+"""
 
 import argparse
-
-import torch
-from transformers import (GPTNeoForCausalLM, GPT2Tokenizer, GPTNeoXForCausalLM,
-                          GPTNeoXTokenizerFast, GPTJForCausalLM, AutoTokenizer, AutoModelForCausalLM)
-
+import os
+from huggingface_hub import snapshot_download
 
 def download_model(model_name):
-
     # --------------------------------- Neo 1.3B --------------------------------- #
-    if model_name == 'gpt-neo-1.3B':
-        GPTNeoForCausalLM.from_pretrained("EleutherAI/gpt-neo-1.3B")
-        GPT2Tokenizer.from_pretrained("EleutherAI/gpt-neo-1.3B")
+    if model_name == "gpt-neo-1.3B":
+        snapshot_download(repo_id="EleutherAI/gpt-neo-1.3B", repo_type="model")
 
     # --------------------------------- Neo 2.7B --------------------------------- #
-    elif model_name == 'gpt-neo-2.7B':
-        GPTNeoForCausalLM.from_pretrained("EleutherAI/gpt-neo-2.7B", torch_dtype=torch.float16)
-        GPT2Tokenizer.from_pretrained("EleutherAI/gpt-neo-2.7B")
+    elif model_name == "gpt-neo-2.7B":
+        snapshot_download(repo_id="EleutherAI/gpt-neo-2.7B", repo_type="model")
 
     # ----------------------------------- NeoX ----------------------------------- #
-    elif model_name == 'gpt-neox-20b':
-        GPTNeoXForCausalLM.from_pretrained("EleutherAI/gpt-neox-20b").half()
-        GPTNeoXTokenizerFast.from_pretrained("EleutherAI/gpt-neox-20b")
+    elif model_name == "gpt-neox-20b":
+        snapshot_download(repo_id="EleutherAI/gpt-neox-20b", repo_type="model")
 
     # --------------------------------- Pygmalion -------------------------------- #
-    elif model_name == 'pygmalion-6b':
-        AutoModelForCausalLM.from_pretrained("PygmalionAI/pygmalion-6b")
-        AutoTokenizer.from_pretrained("PygmalionAI/pygmalion-6b")
+    elif model_name == "pygmalion-6b":
+        snapshot_download(repo_id="PygmalionAI/pygmalion-6b", repo_type="model")
 
     # ----------------------------------- GPT-J ----------------------------------- #
-    elif model_name == 'gpt-j-6b':
-        GPTJForCausalLM.from_pretrained("EleutherAI/gpt-j-6B", revision="float16",
-                                        torch_dtype=torch.float16)
-        AutoTokenizer.from_pretrained("EleutherAI/gpt-j-6B")
+    elif model_name == "gpt-j-6b":
+        snapshot_download(
+            repo_id="EleutherAI/gpt-j-6B", revision="float16", repo_type="model"
+        )
 
     # ----------------------------------- Falcon 7B instruct ----------------------------------- #
-    elif model_name == 'falcon-7b-instruct':
-        AutoModelForCausalLM.from_pretrained("tiiuae/falcon-7b-instruct",
-                                             trust_remote_code=True).half()
-        AutoTokenizer.from_pretrained("tiiuae/falcon-7b-instruct")
+    elif model_name == "falcon-7b-instruct":
+        snapshot_download(repo_id="tiiuae/falcon-7b-instruct", repo_type="model")
 
     # ----------------------------------- Falcon 40B instruct ----------------------------------- #
-    elif model_name == 'falcon-40b-instruct':
-        AutoModelForCausalLM.from_pretrained("tiiuae/falcon-40b-instruct",
-                                             trust_remote_code=True).half()
-        AutoTokenizer.from_pretrained("tiiuae/falcon-40b-instruct")
+    elif model_name == "falcon-40b-instruct":
+        snapshot_download(repo_id="tiiuae/falcon-40b-instruct", repo_type="model")
+
+    # ----------------------------------- Starcoder ----------------------------------- #
+    elif model_name == "starcoder":
+        hf_token = os.environ.get("HF_TOKEN")
+        snapshot_download(
+            repo_id="bigcode/starcoder",
+            repo_type="model",
+            token=hf_token,
+        )
 
 
 # ---------------------------------------------------------------------------- #
 #                                Parse Arguments                               #
 # ---------------------------------------------------------------------------- #
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument("--model_name", type=str,
-                    default="gpt-neo-1.3B", help="URL of the model to download.")
+parser.add_argument(
+    "--model_name",
+    type=str,
+    default="gpt-neo-1.3B",
+    help="URL of the model to download.",
+)
 
 
 if __name__ == "__main__":
