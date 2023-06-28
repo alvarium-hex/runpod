@@ -29,24 +29,6 @@ def download_model(model_name):
             repo_id="EleutherAI/gpt-j-6B", revision="float16", repo_type="model"
         )
 
-    # ----------------------------------- Falcon 7B instruct ----------------------------------- #
-    elif model_name == "falcon-7b-instruct":
-        snapshot_download(repo_id="tiiuae/falcon-7b-instruct", repo_type="model")
-
-    # ----------------------------------- Falcon 40B instruct ----------------------------------- #
-    elif model_name == "falcon-40b-instruct":
-        snapshot_download(repo_id="tiiuae/falcon-40b-instruct", repo_type="model")
-
-    # ----------------------------------- Starcoder ----------------------------------- #
-    elif model_name == "starcoder":
-        hf_token = os.environ.get("HF_TOKEN")
-        snapshot_download(
-            repo_id="bigcode/starcoder",
-            repo_type="model",
-            token=hf_token,
-        )
-
-
 # ---------------------------------------------------------------------------- #
 #                                Parse Arguments                               #
 # ---------------------------------------------------------------------------- #
