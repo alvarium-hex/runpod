@@ -128,6 +128,6 @@ if __name__ == "__main__":
             "/runpod-volume/starcoder",
             local_files_only=True).half().to(device)
         tokenizer = AutoTokenizer.from_pretrained(
-            "bigcode/starcoder", local_files_only=True)
+            "/runpod-volume/starcoder", local_files_only=True)
 
     runpod.serverless.start({"handler": generator})
