@@ -46,24 +46,27 @@ def generator(job):
     '''
     Run the job input to generate text output.
     '''
-    # Validate the input
-    val_input = validate(job['input'], INPUT_SCHEMA)
-    if 'errors' in val_input:
-        return {"error": val_input['errors']}
-    val_input = val_input['validated_input']
+    try:
+        # Validate the input
+        val_input = validate(job['input'], INPUT_SCHEMA)
+        if 'errors' in val_input:
+            return {"error": val_input['errors'], "input": val_input}
+        val_input = val_input['validated_input']
 
-    input_ids = tokenizer(val_input['prompt'], return_tensors="pt").input_ids.to(device)
+        input_ids = tokenizer(val_input['prompt'], return_tensors="pt").input_ids.to(device)
 
-    gen_tokens = model.generate(
-        input_ids,
-        do_sample=val_input['do_sample'],
-        temperature=val_input['temperature'],
-        max_length=val_input['max_length'],
-    ).to(device)
+        gen_tokens = model.generate(
+            input_ids,
+            do_sample=val_input['do_sample'],
+            temperature=val_input['temperature'],
+            max_length=val_input['max_length'],
+        ).to(device)
 
-    gen_text = tokenizer.batch_decode(gen_tokens)[0]
+        gen_text = tokenizer.batch_decode(gen_tokens)[0]
 
-    return gen_text
+        return gen_text
+    except Exception as e:
+        return {"unexpected_error": str(e)}
 
 
 # ---------------------------------------------------------------------------- #
