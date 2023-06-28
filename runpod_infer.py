@@ -50,7 +50,7 @@ def generator(job):
         # Validate the input
         val_input = validate(job['input'], INPUT_SCHEMA)
         if 'errors' in val_input:
-            return {"error": val_input['errors'], "input": val_input}
+            return {"error": val_input['errors']}
         val_input = val_input['validated_input']
 
         input_ids = tokenizer(val_input['prompt'], return_tensors="pt").input_ids.to(device)
@@ -66,7 +66,7 @@ def generator(job):
 
         return gen_text
     except Exception as e:
-        return {"unexpected_error": str(e)}
+        return {"error": e}
 
 
 # ---------------------------------------------------------------------------- #
