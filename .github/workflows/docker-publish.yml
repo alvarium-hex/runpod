@@ -36,19 +36,6 @@ jobs:
       id-token: write
 
     steps:
-      - name: Free worker space
-        uses: easimon/maximize-build-space@master
-        with:
-          remove-dotnet: 'true'
-          remove-android: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
-
-      - name: Free space remaining
-        run: |
-          echo "Free space:"
-          df -h
-
       - name: Checkout repository
         uses: actions/checkout@v3
 
