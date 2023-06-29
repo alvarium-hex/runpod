@@ -132,5 +132,12 @@ if __name__ == "__main__":
             local_files_only=True).half().to(device)
         tokenizer = AutoTokenizer.from_pretrained(
             "/runpod-volume/starcoder", local_files_only=True)
+        
+    elif args.model_name == 'wizardcoder':
+        model = AutoModelForCausalLM.from_pretrained(
+            "/runpod-volume/wizardcoder",
+            local_files_only=True).half().to(device)
+        tokenizer = AutoTokenizer.from_pretrained(
+            "/runpod-volume/wizardcoder", local_files_only=True)
 
     runpod.serverless.start({"handler": generator})

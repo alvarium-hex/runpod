@@ -26,7 +26,7 @@ jobs:
   build:
     strategy:
       matrix:
-        model: ["starcoder", "falcon-7b-instruct", "falcon-40b-instruct"]
+        model: ["starcoder", "falcon-7b-instruct", "falcon-40b-instruct", "wizardcoder"]
     runs-on: ubuntu-latest
     permissions:
       contents: read
